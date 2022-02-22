@@ -1,0 +1,75 @@
+{% extends "auth_layout.html" %}
+{% block title%} {{ title }} {% endblock %}
+
+{% block content %}
+
+<div class="card">
+    <h5 class="card-header">{{ title }}</h5>
+    <div class="card-body">
+        <form class="g-3" action="" method="POST" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <div class="mb-3">
+                {{ form.title.label(class="form-label") }}
+                {% if form.title.errors %}
+                    {{ form.title(class="form-control is-invalid", id="title", onkeyup="createSlug()") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.title.errors %}
+                            <span>{{ error }}.</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.title(class="form-control", id="title", onkeyup="createSlug()") }}
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.slug.label(class="form-label") }}
+                {% if form.slug.errors %}
+                    {{ form.slug(class="form-control is-invalid", id="slug") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.slug.errors %}
+                            <span>{{ error }}.</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.slug(class="form-control", id="slug") }}
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.content.label(class="form-label") }}
+                {% if form.content.errors %}
+                    {{ form.content(class="form-control is-invalid") }}
+                    {% for error in form.content.errors %}
+                        <div class="invalid-feedback">
+                            {{ error }}.
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    {{ form.content(class="form-control") }}
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.picture.label(class="form-label") }}
+                <small class="text-danger">
+                    (Max size 1MB)
+                </small>
+                {% if form.picture.errors %}
+                    {{ form.picture(class="form-control is-invalid") }}
+                    {% for error in form.picture.errors %}
+                        <div class="invalid-feedback">
+                            {{ error }}.
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    {{ form.picture(class="form-control") }}
+                {% endif %}
+            </div>
+            
+            {{ form.submit(class="btn btn-primary")}}
+        </form>
+    </div>
+</div>
+
+{% endblock %}

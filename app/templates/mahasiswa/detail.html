@@ -1,0 +1,23 @@
+{% extends "main_layout.html" %}
+{% block title%} <title>Detail Mahasiswa</title> {% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">
+                {{ mhs[1] }}
+            </h5>
+            <h6 class="card-subtitle mb-2 text-muted">
+                {{ mhs[2] }}
+            </h6>
+            <p class="card-text">
+                {{ mhs[3] }}
+            </p>
+            <p class="card-text">
+                {{ mhs[4] }}
+            </p>
+            <a type="button" href="/mahasiswa" class="btn btn-primary card-link">Kembali</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

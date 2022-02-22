@@ -1,0 +1,49 @@
+{% extends "auth_layout.html" %}
+{% block title%} {{ title }} {% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col">
+        <div class="post-box bg-light">
+            <div class="post-thumb">
+              <img src="{{ url_for('static', filename='img_posted/'+post.image_file) }}" class="img-fluid" alt="">
+            </div>
+            <div class="post-meta">
+              <h1 class="article-title">{{ post.title }}</h1>
+              <ul>
+                <li>
+                  <span class="bi bi-person"></span>
+                  <a href="{{ url_for('site.user_posted', name=post.author.name) }}">{{ post.author.name }}</a>
+                </li>
+                <li>
+                  <span class="bi bi-clock"></span>
+                  <a href="#">{{ post.date_posted.strftime('%d %B, %Y') }}</a>
+                </li>
+                <li>
+                  <span class="bi bi-eye"></span>
+                  <a href="#">{{ post.views }}</a>
+              </li>
+
+                {% if post.author == current_user %}
+                <li>
+                    <span class="bi bi-pen"></span>
+                    <a href="{{ url_for('auth.post_update', post_id=post.id) }}">Edit</a>
+                </li>
+                <li>
+                    <span class="bi bi-trash"></span>
+                    <a href="{{ url_for('auth.post_delete', post_id=post.id) }}">Delete</a>
+                </li>
+                
+                {% endif %}
+              </ul>
+            </div>
+            <div class="article-content">
+              <p>{{ post.content }}</p>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+{% endblock %}
