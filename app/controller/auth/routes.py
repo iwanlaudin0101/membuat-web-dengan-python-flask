@@ -37,6 +37,8 @@ def post_update(post_id):
     form = BlogsValidate()
     if form.validate_on_submit():
         if form.picture.data:
+            if post.image_file and post.image_file != 'default.jpg':
+                auth_controller.delete_file(post.image_file, 'static/img_posted')
             image_file = auth_controller.save_picture(form.picture.data, 'static/img_posted')
             post.image_file = image_file
         post.title = form.title.data
@@ -44,7 +46,7 @@ def post_update(post_id):
         post.content = form.content.data
         db.session.commit()
         flash('Your post has been update!', 'success')
-        return redirect(url_for('site.post_detail', post_id=post.id))
+        return redirect(url_for('site.post_detail', post_slug=post.slug))
     
     if request.method == 'GET':
         form.title.data = post.title
@@ -58,6 +60,8 @@ def post_delete(post_id):
     post = Blog.query.get_or_404(post_id)
     if post.author != current_user:
         abort(403)
+    if post.image_file and post.image_file != 'default.jpg':
+        auth_controller.delete_file(post.image_file, 'static/img_posted')
     db.session.delete(post)
     db.session.commit()
     flash('Your post has been delete!', 'success')
