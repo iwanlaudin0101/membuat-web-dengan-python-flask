@@ -51,7 +51,7 @@ class BlogsValidate(FlaskForm):
     def validate_slug(self, slug):
         slug = Blog.query.filter_by(slug=slug.data).first()
         if slug:
-            raise ValidationError('That slug is taken!. Please choose a different one.')
+            raise ValidationError(f'That slug is taken!. Please choose a different one.')
 
 class RequestResetForm(FlaskForm):
     email = StringField('Email', validators= [DataRequired(), Email()])
