@@ -3,6 +3,7 @@ import secrets
 from flask import current_app, url_for
 from app import db, bcrypt, login_manager, mail
 from app.model.user import User
+from app.form_validate import BlogsValidate
 from flask_mail import Message
 
 @login_manager.user_loader
